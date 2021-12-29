@@ -1,0 +1,1 @@
+import{H as r}from"./index.b6708cfc.js";import{j as e,F as a,a as o}from"./vendor.288931e5.js";function t(){return e(a,{children:o(r,{children:[e("div",{children:"Never google zax4r0"}),";"]})})}export{t as default};
