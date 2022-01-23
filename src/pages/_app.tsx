@@ -14,6 +14,7 @@ import createEmotionCache from "../styles/createEmotionCache";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { Router } from "next/router";
+import { SessionProvider } from "next-auth/react";
 const clientSideEmotionCache = createEmotionCache();
 
 NProgress.configure({ showSpinner: false });
@@ -30,11 +31,24 @@ Router.events.on("routeChangeError", () => {
     NProgress.done();
 });
 
-interface MyAppProps extends AppProps {
-    emotionCache?: EmotionCache;
-}
+// interface MyAppProps extends AppProps {
+//     emotionCache?: EmotionCache;
+// }
 
-const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: MyAppProps) => {
+type ComponentWithPageLayout = AppProps & {
+    emotionCache?: EmotionCache;
+    Component: AppProps["Component"] & {
+        PageLayout?: React.ComponentType;
+        AuthLayout?: React.ComponentType;
+    };
+};
+
+function MyApp({
+    Component,
+    pageProps: { session, ...pageProps },
+    // pageProps,
+    emotionCache = clientSideEmotionCache,
+}: ComponentWithPageLayout) {
     return (
         <CacheProvider value={emotionCache}>
             <ThemeProvider attribute="class">
@@ -46,12 +60,24 @@ const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
                         />
                     </Head>
                     <DefaultSeo {...defaultSEOConfig} />
-                    <Component {...pageProps} />
+                    {Component.AuthLayout ? (
+                        <SessionProvider session={session} refetchInterval={5 * 60}>
+                            <Component.AuthLayout>
+                                <Component {...pageProps} />
+                            </Component.AuthLayout>
+                        </SessionProvider>
+                    ) : Component.PageLayout ? (
+                        <Component.PageLayout>
+                            <Component {...pageProps} />
+                        </Component.PageLayout>
+                    ) : (
+                        <Component {...pageProps} />
+                    )}
                 </ChakraProvider>
             </ThemeProvider>
         </CacheProvider>
     );
-};
+}
 
 MyApp.defaultProps = {
     emotionCache: clientSideEmotionCache,

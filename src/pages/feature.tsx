@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { FaRegLightbulb } from "react-icons/fa";
-const IndexLayout = dynamic(() => import("../components/layout/Index/IndexLayout"));
-const FeatureCard = dynamic(() => import("../components/card/FeatureCard"));
+const IndexLayout = dynamic(() => import("../layout/IndexLayout"));
+const FeatureCard = dynamic(() => import("../components/Index/card/FeatureCard"));
 const Features: NextPage = () => {
     return (
         <IndexLayout

@@ -1,7 +1,7 @@
-import IndexLayout from "@/components/layout/Index/IndexLayout";
+import IndexLayout from "@/layout/IndexLayout";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
-const BlogCard = dynamic(() => import("../../components/card/BlogCard"));
+const BlogCard = dynamic(() => import("../../components/Index/card/BlogCard"));
 const Blogx: NextPage = () => {
     return (
         <IndexLayout

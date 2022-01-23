@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-const IndexLayout = dynamic(() => import("../components/layout/Index/IndexLayout"));
+const IndexLayout = dynamic(() => import("../layout/IndexLayout"));
 import { Switch } from "@chakra-ui/react";
 
 function Pricing() {
@@ -13,9 +13,9 @@ function Pricing() {
             }
         >
             <table className="hidden lg:block w-full text-base text-primaryDark  dark:text-primaryLight my-32  ">
-                <thead className="sticky pt-[5.5rem]">
+                <thead className="sticky pt-[7.9rem]">
                     <tr>
-                        <th className="w-1/5 bg-primaryLight dark:bg-primaryDark text-left font-normal align-top px-4 pt-[5.5rem] pb-6 sticky top-0">
+                        <th className="w-1/5 bg-primaryLight dark:bg-primaryDark text-left font-normal align-top px-4 pt-[7.5rem] pb-6 sticky top-0">
                             <div className="text-[28px] order-2 font-bold  text-primaryDark dark:text-darkAccent mt-4">
                                 Bundle & Save
                             </div>

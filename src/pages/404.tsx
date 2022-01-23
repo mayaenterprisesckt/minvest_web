@@ -1,4 +1,4 @@
-import MotionBox from "@/components/motion/Box";
+import MotionBox from "@/components/shared/motion/Box";
 import { Box, Button, Heading, Image, Text, useColorMode } from "@chakra-ui/react";
 import Link from "next/link";
 

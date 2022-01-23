@@ -1,7 +1,7 @@
 function Adress() {
     return (
         <>
-            <div className="bg-primaryLight dark:bg-primaryDark relative flex flex-wrap py-6 rounded shadow-md">
+            <div className="bg-primaryLight dark:bg-primaryDark relative flex flex-wrap py-6 rounded shadow-md dark:text-white">
                 <div className="lg:w-1/2 px-6">
                     <h2 className="title-font font-semibold text-primaryDark  dark:text-primaryLight  tracking-widest text-xs">
                         ADDRESS

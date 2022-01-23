@@ -1,21 +1,50 @@
-/* eslint-disable @next/next/link-passhref */
-import { Box, Text } from "@chakra-ui/react";
-import Link from "next/link";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 
-function index() {
-    return (
-        <div className="w-screen h-screen m-0 p-0 bg-primaryLight dark:bg-primaryDark">
-            this is dashBoard
-            <Box textAlign="center" marginTop={4}>
-                <Text>It&apos;s Okay!</Text>
-                <Link href="/">
-                    <button className="bg-[#DDE0E6]  hover:bg-gray-200 text-gray-800 dark:bg-transparent dark:text-white px-8 py-5 text-md font-semibold border-0 dark:border-2 dark:border-white  rounded-md cursor-pointer uppercase tracking-wide leading-3 hover:opacity-80">
-                        Go back to Home
-                    </button>
-                </Link>
-            </Box>
-        </div>
-    );
+function UserLayout() {
+    return null;
 }
+export default UserLayout;
+export const getServerSideProps: GetServerSideProps = async context => {
+    const { req } = context;
+    const session = await getSession({ req });
+    console.log(session);
+    // @ts-ignore
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false,
+            },
+        };
+    }
+    // @ts-ignore
+    if (session && session.token && session.user!.usertype === "USER") {
+        console.log("this server redirect ");
+        return {
+            redirect: {
+                // @ts-ignore
+                destination: `/dashboard/user`,
+                permanent: false,
+            },
+        };
+    }
+    // @ts-ignore
+    if (session && session.token && session.user!.usertype === "DIS") {
+        console.log("this server redirect ");
+        return {
+            redirect: {
+                // @ts-ignore
+                destination: `/dashboard/dis`,
+                permanent: false,
+            },
+        };
+    }
+    // @ts-ignore
 
-export default index;
+    return {
+        props: {
+            session: session,
+        },
+    };
+};
