@@ -15,6 +15,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { Router } from "next/router";
 import { SessionProvider } from "next-auth/react";
+
 const clientSideEmotionCache = createEmotionCache();
 
 NProgress.configure({ showSpinner: false });
@@ -39,7 +40,6 @@ type ComponentWithPageLayout = AppProps & {
     emotionCache?: EmotionCache;
     Component: AppProps["Component"] & {
         PageLayout?: React.ComponentType;
-        AuthLayout?: React.ComponentType;
     };
 };
 
@@ -51,7 +51,7 @@ function MyApp({
 }: ComponentWithPageLayout) {
     return (
         <CacheProvider value={emotionCache}>
-            <ThemeProvider attribute="class">
+            <ThemeProvider attribute="class" storageKey="chakra-ui-color-mode" defaultTheme="light">
                 <ChakraProvider theme={customTheme}>
                     <Head>
                         <meta
@@ -60,19 +60,15 @@ function MyApp({
                         />
                     </Head>
                     <DefaultSeo {...defaultSEOConfig} />
-                    {Component.AuthLayout ? (
-                        <SessionProvider session={session} refetchInterval={5 * 60}>
-                            <Component.AuthLayout>
+                    <SessionProvider session={session} refetchInterval={5 * 60}>
+                        {Component.PageLayout ? (
+                            <Component.PageLayout>
                                 <Component {...pageProps} />
-                            </Component.AuthLayout>
-                        </SessionProvider>
-                    ) : Component.PageLayout ? (
-                        <Component.PageLayout>
+                            </Component.PageLayout>
+                        ) : (
                             <Component {...pageProps} />
-                        </Component.PageLayout>
-                    ) : (
-                        <Component {...pageProps} />
-                    )}
+                        )}
+                    </SessionProvider>
                 </ChakraProvider>
             </ThemeProvider>
         </CacheProvider>

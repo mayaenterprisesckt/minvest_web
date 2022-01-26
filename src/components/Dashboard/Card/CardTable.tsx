@@ -1,3 +1,4 @@
+import AddNewUser from "@/containers/dashboard/distributer/AddNewUser";
 import Link from "next/link";
 import React from "react";
 // components
@@ -17,6 +18,7 @@ export default function CardTable() {
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                             <h3 className={"font-semibold text-lg "}>Distributers</h3>
                         </div>
+                        <AddNewUser title="Add new Client" />
                     </div>
                 </div>
                 <div className="block w-full overflow-x-auto">
@@ -62,7 +64,7 @@ export default function CardTable() {
                             </tr>
                         </thead>
                         <tbody>
-                            <Link href="/distributers/[id]" as={`/distributers/${"1"}`}>
+                            <Link href="/clients/[id]" as={`/clients/${"1"}`}>
                                 <tr>
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                                         <img

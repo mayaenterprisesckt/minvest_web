@@ -1,4 +1,4 @@
-import HuluButton from "@/components/button/HuluButton";
+import HuluButton from "@/components/shared/button/HuluButton";
 import { useKeenSlider } from "keen-slider/react";
 import dynamic from "next/dynamic";
 // import Link from "next/link";

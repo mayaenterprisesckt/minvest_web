@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
-const IndexLayout = dynamic(() => import("../layout/IndexLayout"));
-const ContactContainer = dynamic(() => import("../containers/Index/Home/Contact"));
+const IndexLayout = dynamic(() => import("../../layout/IndexLayout"));
+const ContactContainer = dynamic(() => import("../../containers/Index/Home/Contact"));
 
 import type { NextPage } from "next";
 

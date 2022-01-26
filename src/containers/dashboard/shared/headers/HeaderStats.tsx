@@ -1,4 +1,4 @@
-import CardStats from "@/components/dashboard/Card/CardStats";
+import CardStats from "@/components/Dashboard/Card/CardStats";
 import React from "react";
 
 // components

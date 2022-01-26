@@ -2,7 +2,7 @@ import React from "react";
 import { chakra, Box, Stack, Text } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-const HuluButton = dynamic(() => import("../../../../components/button/HuluButton"));
+const HuluButton = dynamic(() => import("../../../../components/shared/button/HuluButton"));
 const Hero = () => {
     return (
         <Box mx="auto" my="32">

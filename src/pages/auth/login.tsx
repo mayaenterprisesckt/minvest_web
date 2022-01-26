@@ -15,17 +15,10 @@ import { Form, Formik } from "formik";
 import { InputField } from "@/components/from/InputField";
 import ForgotPass from "@/containers/auth/ForgotPass";
 
-function LoginPage({ csrfToken }: { session: any; csrfToken: any }) {
+function LoginPage({ csrfToken }: { csrfToken: any }) {
     const Bgvalue = useColorModeValue("#FFFFFF", "primaryDark");
     const router = useRouter();
     const toast = useToast();
-    // console.log(session)
-    // useEffect(() => {
-    //     if (session && session.token) {
-    //         router.push(`/dashboard/${session.user!.usertype}`);
-    //         console.log("this client redirect" + session);
-    //     }
-    // }, []);
 
     return (
         <Flex minH={"100vh"} align={"center"} justify={"center"} bg={Bgvalue}>
@@ -45,7 +38,7 @@ function LoginPage({ csrfToken }: { session: any; csrfToken: any }) {
                                     redirect: false,
                                     username: values.username,
                                     password: values.password,
-                                    callbackUrl: `${window.location.origin}`,
+                                    callbackUrl: `${window.location.origin}/dashboard`,
                                 });
 
                                 // @ts-ignore
@@ -73,9 +66,9 @@ function LoginPage({ csrfToken }: { session: any; csrfToken: any }) {
                                         position: "top",
                                     });
                                     // @ts-ignore
-                                    router.push(`${res?.url}/dashboard`);
                                     setSubmitting(false);
-                                    // router.push("/");
+                                    // @ts-ignore
+                                    router.push(`${res?.url}`);
                                 }
                             }}
                         >
@@ -155,27 +148,27 @@ export async function getServerSideProps(context: any) {
         };
     }
     // @ts-ignore
-    if (session && res && session.token && session.user!.usertype === "USER") {
-        console.log("this server redirect ");
-        return {
-            redirect: {
-                // @ts-ignore
-                destination: `/dashboard/user`,
-                permanent: false,
-            },
-        };
-    }
-    // @ts-ignores
-    if (session && res && session.token && session.user!.usertype === "DIS") {
-        console.log("this server redirect ");
-        return {
-            redirect: {
-                // @ts-ignore
-                destination: `/dashboard/dis`,
-                permanent: false,
-            },
-        };
-    }
+    // if (session && res && session.token && session.user!.usertype === "USER") {
+    //     console.log("this server redirect ");
+    //     return {
+    //         redirect: {
+    //             // @ts-ignore
+    //             destination: `/dashboard/user`,
+    //             permanent: false,
+    //         },
+    //     };
+    // }
+    // // @ts-ignores
+    // if (session && res && session.token && session.user!.usertype === "DIS") {
+    //     console.log("this server redirect ");
+    //     return {
+    //         redirect: {
+    //             // @ts-ignore
+    //             destination: `/dashboard/dis`,
+    //             permanent: false,
+    //         },
+    //     };
+    // }
     return {
         props: {
             // session: session,

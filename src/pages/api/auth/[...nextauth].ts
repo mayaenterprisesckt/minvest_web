@@ -6,7 +6,7 @@ export default NextAuth({
         CredentialsProvider({
             id: "credentials",
             // The name to display on the sign in form (e.g. 'Sign in with...')
-            name: "my-project",
+            name: "Minvest",
             // The credentials is used to generate a suitable form on the sign in page.
             // You can specify whatever fields you are expecting to be submitted.
             // e.g. domain, username, password, 2FA token, etc.
@@ -43,12 +43,12 @@ export default NextAuth({
                     }
                 );
                 const user = await resx.json();
-                console.log(JSON.stringify(user?.user?.usertype));
+                // console.log(JSON.stringify(user?.user?.usertype));
                 if (!resx.ok) {
                     throw new Error(user.message);
                 }
                 if (resx.ok && user?.user?.usertypess !== "ADMIN") {
-                    console.log("aaaaaaaaaaaaaaaaaaaaaaaa" + user.user.usertype);
+                    // console.log(user.user.usertype);
                     return user;
                 }
                 // throw new Error(user.message);

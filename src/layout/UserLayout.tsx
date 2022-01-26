@@ -1,35 +1,41 @@
-import Nav from "@/components/dashboard/user/Nav";
-import SidebarContent from "@/components/dashboard/user/Sidebar/SidebarContent";
-import Footer from "@/components/dashboard/Footer/Footer";
+import Nav from "@/components/Dashboard/Shared/Nav";
+import Footer from "@/components/Dashboard/Footer/Footer";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
-import { useSession } from "next-auth/react";
+import { IconType } from "react-icons";
+import { FiHome, FiTrendingUp, FiSettings } from "react-icons/fi";
+import SidebarContent, { SidebarLink } from "@/components/Dashboard/Shared/Sidebar/SidebarContent";
+
+interface LinkItemProps {
+    name: string;
+    icon: IconType;
+    href: string;
+}
+const LinkItems: Array<LinkItemProps> = [
+    { name: "Dashboard", icon: FiHome, href: "/dashboard" },
+    { name: "Portfolio", icon: FiTrendingUp, href: "/dashboard/user/portfolio" },
+    { name: "Settings", icon: FiSettings, href: "/dashboard/user/settings" },
+];
 
 function UserLayout({ children }: { children: ReactNode }) {
     const Bgvalue = useColorModeValue("#FFFFFF", "primaryDark");
-
-    const { status } = useSession();
-    // if (!session && status !== "unauthenticated") {
-    //     const router = useRouter();
-    //     useEffect(() => {
-    //         router.push("/auth/login");
-    //     }, [router]);
-    // }
-
-    // if (typeof window !== "undefined" && status === "loading") return null;
-    if (typeof window !== "undefined" && status === "loading") {
-        return (
-            <>
-                <div>Loading</div>
-            </>
-        );
-    }
-
     return (
         <>
-            <Nav></Nav>
+            <Nav>
+                {LinkItems.map(link => (
+                    <SidebarLink key={link.name} icon={link.icon} href={link.href}>
+                        {link.name}
+                    </SidebarLink>
+                ))}
+            </Nav>
             <Box as="section" bg={Bgvalue} minH="100vh" pt={10}>
-                <SidebarContent display={{ base: "none", md: "unset" }} />
+                <SidebarContent display={{ base: "none", md: "unset" }}>
+                    {LinkItems.map(link => (
+                        <SidebarLink key={link.name} icon={link.icon} href={link.href}>
+                            {link.name}
+                        </SidebarLink>
+                    ))}
+                </SidebarContent>
                 <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
                     <Box as="main" p="4" mt={10}>
                         {children}
@@ -40,49 +46,4 @@ function UserLayout({ children }: { children: ReactNode }) {
         </>
     );
 }
-UserLayout.AuthLayout = UserLayout;
 export default UserLayout;
-
-// export const getServerSideProps: GetServerSideProps = async context => {
-//     const { req } = context;
-//     const session = await getSession({ req });
-//     console.log(session);
-//     // @ts-ignore
-//     if (!session) {
-//         return {
-//             redirect: {
-//                 destination: "/auth/login",
-//                 permanent: false,
-//             },
-//         };
-//     }
-//     // @ts-ignore
-//     if (session && session.token && session.user!.usertype === "USER") {
-//         console.log("this server redirect ");
-//         return {
-//             redirect: {
-//                 // @ts-ignore
-//                 destination: `/dashboard/user`,
-//                 permanent: false,
-//             },
-//         };
-//     }
-//     // @ts-ignore
-//     // if (session && session.token && session.user!.usertype === "DIS") {
-//     //     console.log("this server redirect ");
-//     //     return {
-//     //         redirect: {
-//     //             // @ts-ignore
-//     //             destination: `/dashboard/dis`,
-//     //             permanent: false,
-//     //         },
-//     //     };
-//     // }
-//     // @ts-ignore
-
-//     return {
-//         props: {
-//             session: session,
-//         },
-//     };
-// };

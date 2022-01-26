@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
-const IndexLayout = dynamic(() => import("../layout/IndexLayout"));
+const IndexLayout = dynamic(() => import("../../layout/IndexLayout"));
 
 const About: NextPage = () => {
     return (

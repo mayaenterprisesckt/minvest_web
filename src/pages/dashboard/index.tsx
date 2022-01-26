@@ -1,50 +1,28 @@
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
-
-function UserLayout() {
+import DistributerContainer from "@/containers/dashboard/distributer/Index";
+import UserContainer from "@/containers/dashboard/user";
+import DisLayout from "@/layout/DisLayout";
+import UserLayout from "@/layout/UserLayout";
+import { useSession } from "next-auth/react";
+function UserDashboard() {
+    const { data: session } = useSession({
+        required: true,
+    });
+    // @ts-ignore
+    if (session?.user.usertype === "DIS") {
+        return (
+            <DisLayout>
+                <DistributerContainer />
+            </DisLayout>
+        );
+    }
+    // @ts-ignore
+    if (session?.user.usertype === "USER") {
+        return (
+            <UserLayout>
+                <UserContainer />
+            </UserLayout>
+        );
+    }
     return null;
 }
-export default UserLayout;
-export const getServerSideProps: GetServerSideProps = async context => {
-    const { req } = context;
-    const session = await getSession({ req });
-    console.log(session);
-    // @ts-ignore
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false,
-            },
-        };
-    }
-    // @ts-ignore
-    if (session && session.token && session.user!.usertype === "USER") {
-        console.log("this server redirect ");
-        return {
-            redirect: {
-                // @ts-ignore
-                destination: `/dashboard/user`,
-                permanent: false,
-            },
-        };
-    }
-    // @ts-ignore
-    if (session && session.token && session.user!.usertype === "DIS") {
-        console.log("this server redirect ");
-        return {
-            redirect: {
-                // @ts-ignore
-                destination: `/dashboard/dis`,
-                permanent: false,
-            },
-        };
-    }
-    // @ts-ignore
-
-    return {
-        props: {
-            session: session,
-        },
-    };
-};
+export default UserDashboard;

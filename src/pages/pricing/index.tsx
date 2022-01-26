@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-const IndexLayout = dynamic(() => import("../layout/IndexLayout"));
+const IndexLayout = dynamic(() => import("../../layout/IndexLayout"));
 import { Switch } from "@chakra-ui/react";
 
 function Pricing() {

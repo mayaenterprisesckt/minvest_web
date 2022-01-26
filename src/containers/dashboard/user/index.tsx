@@ -1,5 +1,5 @@
-import CardPageVisits from "@/components/dashboard/Card/CardPageVisits";
-import CardSocialTraffic from "@/components/dashboard/Card/CardSocialTraffic";
+import CardPageVisits from "@/components/Dashboard/Card/CardPageVisits";
+import CardSocialTraffic from "@/components/Dashboard/Card/CardSocialTraffic";
 import HeaderStats from "../shared/headers/HeaderStats";
 
 function UserContainer() {

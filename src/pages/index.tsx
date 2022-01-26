@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
-const IndexLayout = dynamic(() => import("../layout/IndexLayout"));
+import IndexLayout from "@/layout/IndexLayout";
 const Hero = dynamic(() => import("../containers/Index/Home/Hero"));
 const Featurs = dynamic(() => import("../containers/Index/Home/Featurs"));
 const Partners = dynamic(() => import("../containers/Index/Home/Partners"));
@@ -14,7 +14,6 @@ function Index() {
                 <meta name="description" content="All your investments in one single place" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            {/* <IndexLayout PageTitle="Minvest" PageDesc="Home"> */}
             <Hero />
             <hr />
             <Featurs />
@@ -22,7 +21,6 @@ function Index() {
             <Partners />
             <hr />
             <Review />
-            {/* </IndexLayout> */}
         </div>
     );
 }

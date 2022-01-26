@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
     Box,
     Flex,
@@ -28,17 +28,15 @@ import {
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
 import { GoSignOut } from "react-icons/go";
-import SidebarContent from "@/components/dashboard/user/Sidebar/SidebarContent";
 import { signOut, useSession } from "next-auth/react";
 import DarkModeToggleSwitch from "@/components/shared/ToggleThemeSwitch";
-import { useRouter } from "next/router";
-function Nav() {
+import SidebarContent from "../Sidebar/SidebarContent";
+function Nav({ children }: { children: ReactNode }) {
     const sidebar = useDisclosure();
     const Bgvalue = useColorModeValue("#FFFFFF", "primaryDark");
     const ColorValue = useColorModeValue("primaryDark", "#FFFFFF");
     const { data: session } = useSession();
     const toast = useToast();
-    const router = useRouter();
 
     return (
         <>
@@ -74,7 +72,9 @@ function Nav() {
                                 </DrawerHeader>
                                 <DrawerOverlay />
                                 <DrawerContent>
-                                    <SidebarContent w="full" borderRight="none" />
+                                    <SidebarContent w="full" borderRight="none">
+                                        {children}
+                                    </SidebarContent>
                                 </DrawerContent>
                             </Drawer>
                         </Box>
@@ -113,14 +113,6 @@ function Nav() {
                                 </HStack>
                             </MenuButton>
                             <MenuList bg={Bgvalue} color={ColorValue}>
-                                <MenuItem
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        router.push("/dashboard/user/account");
-                                    }}
-                                >
-                                    My Account
-                                </MenuItem>
                                 <MenuItem>
                                     <DarkModeToggleSwitch />
                                 </MenuItem>
@@ -134,8 +126,8 @@ function Nav() {
                                             status: "success",
                                             position: "top",
                                         });
-                                        router.push("/");
                                         signOut();
+                                        // router.push("/");
                                     }}
                                 >
                                     <Icon mr="4" fontSize="16" as={GoSignOut} />

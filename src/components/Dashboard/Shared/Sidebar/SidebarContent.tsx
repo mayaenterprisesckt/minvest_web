@@ -1,20 +1,21 @@
 import { Box, Text, useColorModeValue, Flex } from "@chakra-ui/react";
-import { FaTv } from "react-icons/fa";
 import NavLink from "./SidebarItemsLink";
+
+export const SidebarLink = ({ href, children, icon }: any) => (
+    <NavLink href={href}>
+        <Flex align="center">
+            <Box as={icon} mr={3} w={6} />
+            <Text fontSize="sm" fontWeight="medium">
+                {children}
+            </Text>
+        </Flex>
+    </NavLink>
+);
 
 function SidebarContent(props: any) {
     const Bgvalue = useColorModeValue("#FFFFFF", "primaryDark");
     // const { data: session } = useSession();
-    const SidebarLink = ({ href, children, icon }: any) => (
-        <NavLink href={href}>
-            <Flex align="center">
-                <Box as={icon} mr={3} w={6} />
-                <Text fontSize="sm" fontWeight="medium">
-                    {children}
-                </Text>
-            </Flex>
-        </NavLink>
-    );
+
     return (
         <Box
             as="nav"
@@ -50,17 +51,7 @@ function SidebarContent(props: any) {
                 color="gray.600"
                 aria-label="Main Navigation"
             >
-                <>
-                    <SidebarLink icon={FaTv} href="/dashboard/user">
-                        Dashboard
-                    </SidebarLink>
-                    <SidebarLink icon={FaTv} href="/dashboard/user">
-                        Portfolio
-                    </SidebarLink>
-                    <SidebarLink icon={FaTv} href="/dashboard/user/settings">
-                        Settings
-                    </SidebarLink>
-                </>
+                <>{props.children}</>
             </Flex>
         </Box>
     );

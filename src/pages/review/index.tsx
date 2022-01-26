@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Avatar, Box, chakra, Flex, Icon, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-const IndexLayout = dynamic(() => import("../layout/IndexLayout"));
+const IndexLayout = dynamic(() => import("../../layout/IndexLayout"));
 
 const testimonials = [
     {
